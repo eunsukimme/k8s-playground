@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune2s-env-from-configmap
+  labels:
+    app: kubia
+spec:
+  containers:
+    - image: luksa/fortune:env
+      name: html-generator
+      env:
+        - name: INTERVAL
+          # 고정 value 를 설정하는 대신 컨피그맵 키에서 값을 가져와 초기화한다
+          valueFrom:
+            configMapKeyRef:
+              # 참조하는 컨피그 맵 이름
+              name: fortune-config
+              # 컨피그맵에서 해당 키 아래에 저장된 값으로 환경 변수 설정
+              key: sleep-interval
+              # optiona: true 로 주어지면 해당 이름의 컨피그 맵을 찾지 못해도 파드가 시작된다
+              # option: true
+      # 컨피그맵에 있는 설정이 많을 경우 위 처럼 일일이 명시하는 일은 귀찮을 수 있다
+      # 이 경우 컨피그맵에 있는 모든 설정을 한 번에 가져올 수 있다
+
+      # env 대신 envFrom 사용
+      # envFrom:
+      # 모든 환경변수는 CONFIG_ 접두사를 가진다
+      #   - prefix: CONFIG_
+      #     configMapKeyRef:
+      #       name: my-config-map
+# Note: 컨피그 맵의 키가 대시를 가지는 등 환경 변수 이름이 되기 위한 조건을 충족하지 않으면, 쿠버네티스는 해당 설정을 환경변수로 변환하지 않는다
+# 아래는 chapter06/fortune-pod.yaml 과 동일하다
