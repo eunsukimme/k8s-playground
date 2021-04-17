@@ -12,5 +12,8 @@
 # secrets
 ./tls.cert
 ./tls.key
+./https.cert
+./https.key
+./foo
 
 # End of https://www.toptal.com/developers/gitignore/api/vscode
