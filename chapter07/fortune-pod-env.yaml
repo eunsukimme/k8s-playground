@@ -13,8 +13,8 @@ spec:
       # 이렇게 추가된 환경 변수는 파드 레벨이 아닌 컨테이너 정의 안에 설정된다
       env:
         - name: INTERVAL
-          value: "30"
+          value: "2"
         # 이렇게 첫 번째 환경변수 값을 참조하는 다른 환경변수도 정의할 수 있다. $(VAR)
         - name: SECOND_VAR
-          value: "$(INTERVAL)_FOO_BAR" # 이 값은 "30_FOO_BAR" 가 된다
+          value: "$(INTERVAL)_FOO_BAR" # 이 값은 "2_FOO_BAR" 가 된다
 # 아래는 chapter06/fortune-pod.yaml 과 동일하다
