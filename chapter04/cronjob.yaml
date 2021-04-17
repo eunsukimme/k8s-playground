@@ -1,0 +1,22 @@
+apiVersion: batch/v1beta1
+kind: CrontJob
+metadata:
+  name: batch-job-every-fifteen-minutes
+spec:
+  # 이 잡은 매일, 매 시간 0, 15, 30, 45분에 실행된다
+  schedule: "0,15,30,45 * * * *"
+  # 파드는 예정된 시간에서 늦어도 15초 내에 시작되어야 한다
+  startingDeadlineSeconds: 15
+  # 크롭잡이 생성하는 잡의 템플릿
+  jobTemplate:
+    spec:
+      # 잡이 생성하는 파드의 템플릿
+      template:
+        metadata:
+          labels:
+            app: periodic-batch-job
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - image: luksa/batch-job
+              name: main

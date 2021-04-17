@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kubia
+spec:
+  rules:
+    - host: kubia.example.com # 인그레스는 kubia.example.com 도메인 이름을 서비스에 매핑한다
+      http:
+        # 모든 요청은 kubia-nodeport 서비스의 포트 80으로 전달된다
+        paths:
+          - path: /
+            backend:
+              serviceName: kubia-nodeport
+              servicePort: 80
+          # path 로 라우팅 할 수도 있고
+          # - path: /bar
+          #   backend:
+          #     serviceName: bar
+          #     servicePort: 80
+    # host 로 라우팅 할 수도 있다
+    # - host: foo.example.com
+    #   http:
+    #     paths:
+    #       - path: /
+    #         backend:
+    #           serviceName: foo
+    #           servicePort: 80

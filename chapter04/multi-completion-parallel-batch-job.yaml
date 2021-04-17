@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: multi-completion-parallel-batch-job
+spec:
+  completions: 5
+  parallelism: 2
+  # 잡이 생성하는 파드 템플릿
+  template:
+    metadata:
+      labels:
+        app: batch-job
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - image: luksa/batch-job
+          name: main

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kubia
+spec:
+  replicas: 3
+  # selector 에서 레이블을 지정하지 않으면 쿠버네티스가 template의 metadata.labels 에서와 동일한 레이블 셀렉터를 자동으로 지정한다
+  # selector:
+  #   app: kubia
+  template:
+    metadata:
+      labels:
+        app: kubia
+        env: dev
+    spec:
+      containers:
+        - name: kubia
+          image: luksa/kubia
+          ports:
+            - name: http
+              containerPort: 8080

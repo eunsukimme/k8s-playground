@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-pv
+spec:
+  # PersistentVolume 사이즈를 지정한다
+  capacity:
+    storage: 1Gi
+  # 이 PV 는 단일 클라이언트의 읽기 / 쓰기용(ReadWriteOnce) 이나 여러 클라이언트를 위한 읽기 전용(ReadOnlyMany) 로 마운트된다
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+  # 클레임이 해제된 후 퍼시스턴트 볼륨은 유지되어야 한다(지워지거나 삭제되면 안된다)
+  persistentVolumeReclaimPolicy: Retain
+  # 퍼시스턴트 볼륨은 이전에 생성한 aws ebs 디스크를 기반으로 한다
+  awsElasticBlockStore:
+    folumeId: my-volume
+    fsType: ext4

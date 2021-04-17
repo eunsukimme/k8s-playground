@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: kubia
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubia
+    # matchExpressions 를 사용하면 더 강력한 레이블 셀렉터 표현식을 적용할 수 있다.
+    # 아래는 key 가 app 이면서 env 가 존재하는 포드를 매칭한다
+    # matchExpressions:
+    #   - key: app
+    #     operator: In
+    #     values:
+    #       - kubia
+    #   - key: env
+    #     operator: Exists
+  template:
+    metadata:
+      labels:
+        app: kubia
+        env: dev
+    spec:
+      containers:
+        - image: eunsudev/kubia
+          name: kubia

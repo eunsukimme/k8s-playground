@@ -1,0 +1,11 @@
+# 클러스터 내 파드의 요청을 받아서 동일한 클러스터 내 app=kubia 인 파드의 http 포트로 요청을 전달하는 서비스
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubia
+spec:
+  ports:
+    - port: 80 # 서비스가 사용할 포트
+      targetPort: http # 서비스가 포워드할 컨테이너 포트
+  selector:
+    app: kubia

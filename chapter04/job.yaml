@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: batch-job
+spec:
+  # metadata 에서 파드 셀렉터를 지정하지 않으면 파드 템플릿의 레이블을 기반으로 만들어진다
+  template:
+    metadata:
+      labels:
+        app: batch-job
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - image: luksa/batch-job
+          name: main

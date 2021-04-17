@@ -1,0 +1,10 @@
+# 클러스터 내 파드의 요청을 받아서 클러스터 외부로 전달하는 서비스
+# 외부로 나가려면 해당하는 엔드포인트가 필요(external-service-endpoints.yaml 참고)
+apiVersion: v1
+kind: Service
+metadata:
+  # 엔드포인트 리소스 이름은 서비스의 이름과 일치해야 한다
+  name: external-service
+spec:
+  ports:
+    - port: 80

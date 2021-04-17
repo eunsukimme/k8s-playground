@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  # persistentVolumeClaim 의 이름으로 나중에 파드의 볼륨을 요청할 때 사용한다
+  name: mongodb-pvc
+spec:
+  resources:
+    # 1GiB의 스토리지를 요청한다
+    requests:
+      storage: 1Gi
+  # 단일 클라이언트를 지원하는 스토리지다(읽기/쓰기를 모두 수행한다)
+  accessModes:
+    - ReadWriteOnce
+  # dl qnqnsdms '동적 프로비저닝' 절에서 배운다
+  storageClassName: ""
