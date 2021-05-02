@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kubia-v1
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: kubia
+      labels:
+        app: kubia
+    spec:
+      containers:
+        # 이 이미지를 실행하는 파드에 대한 레플리케이션 컨트롤러를 만들고 있습니다
+        - image: luksa/kubia:v1
+          name: nodejs
+---
+# YAML 파일에는 대시 3개가 있는 줄로 구분해 여러 리소스 정의를 포함할 수 있습니다
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubia
+spec:
+  type: LoadBalancer
+  selector:
+    app: kubia
+  ports:
+    - port: 80
+      targetPort: 8080

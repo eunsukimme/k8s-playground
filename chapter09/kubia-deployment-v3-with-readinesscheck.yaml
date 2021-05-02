@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubia
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubia
+  # minReadySeconds 를 10으로 설정합니다. 즉 파드가 준비된 후 10초 동안 대기하게 됩니다
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      # 디플로이먼트가 파드를 하나씩 교체하도록 maxUnavailable 을 0으로 설정합니다
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      name: kubia
+      labels:
+        app: kubia
+    spec:
+      containers:
+        # 문제의 버전인 v3로 이미지를 설정합니다
+        - image: luksa/kubia:v3
+          name: nodejs
+          # 1초 마다 실행되는 레디니스 프로브를 정의합니다
+          readinessProbe:
+            periodSeconds: 1
+            # 레디니스 프로브는 컨테이너에 HTTP GET 요청을 수행합니다
+            httpGet:
+              path: /
+              port: 8080

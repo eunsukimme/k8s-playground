@@ -1,0 +1,20 @@
+# 디플로이먼트 API 그룹은 apps 의 v1 버전입니다
+apiVersion: apps/v1
+# kind 를 레플리케이션 컨트롤러에서 디플로이먼트로 변경했습니다
+kind: Deployment
+metadata:
+  name: kubia
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubia
+  template:
+    metadata:
+      name: kubia
+      labels:
+        app: kubia
+    spec:
+      containers:
+        - image: luksa/kubia:v1
+          name: nodejs
