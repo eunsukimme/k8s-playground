@@ -1,0 +1,44 @@
+# 이 kind 는 세 개의 PV의 리스트(list)를 나타냅니다
+kind: PersistentVolumeList
+apiVersion: v1
+items:
+  - apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: pv-a
+    spec:
+      capacity:
+        storage: 1Mi
+      accessModes:
+        - ReadWriteOnce
+      # 클레임에서 볼륨이 해제되며 다시 사용해 재사용합니다
+      persistentVolumeReclaimPolicy: Recycle
+      # 볼륨은 hostPath를 기반 스토리지 매커니즘으로 사용합니다
+      hostPath:
+        path: /tmp/pv-a
+
+  - apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: pv-b
+    spec:
+      capacity:
+        storage: 1Mi
+      accessModes:
+        - ReadWriteOnce
+      persistentVolumeReclaimPolicy: Recycle
+      hostPath:
+        path: /tmp/pv-b
+
+  - apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: pv-c
+    spec:
+      capacity:
+        storage: 1Mi
+      accessModes:
+        - ReadWriteOnce
+      persistentVolumeReclaimPolicy: Recycle
+      hostPath:
+        path: /tmp/pv-c
