@@ -11,7 +11,7 @@ items:
         storage: 1Mi
       accessModes:
         - ReadWriteOnce
-      # 클레임에서 볼륨이 해제되며 다시 사용해 재사용합니다
+      # 클레임에서 볼륨이 해제되면 다시 사용해 재사용합니다
       persistentVolumeReclaimPolicy: Recycle
       # 볼륨은 hostPath를 기반 스토리지 매커니즘으로 사용합니다
       hostPath:

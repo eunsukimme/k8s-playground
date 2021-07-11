@@ -31,3 +31,4 @@ spec:
             storage: 1Mi
         accessModes:
           - ReadWriteOnce
+        storageClassName: ""
